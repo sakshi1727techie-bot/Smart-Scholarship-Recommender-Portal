@@ -1,0 +1,66 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+
+    # USER
+    path('create-user/', views.create_user),
+    path('verify-email-otp/', views.verify_email_otp),
+
+    # USER ROLE
+    path('user-roles/create/', views.create_user_role),
+    path('user-roles/', views.get_all_user_roles),
+    path('user-roles/<int:user_role_id>/', views.get_user_role_by_id),
+    path('user-roles/update/', views.update_user_role),
+    path('user-roles/delete/', views.delete_user_role_update),
+    path('user-roles/active/', views.get_active_user_roles),
+    path('user-roles/inactive/', views.get_inactive_user_roles),
+    path('user-roles/order-by-asc/', views.get_user_roles_order_by_asc),
+    path('user-roles/order-by-desc/', views.get_user_roles_order_by_desc),
+    path('register/', views.register_user),
+    path('login/', views.login_user),
+    path('forgot-password/', views.forgot_password),
+    path('verify-reset-otp/', views.verify_reset_otp),
+    path('reset-password/', views.reset_password),
+    path('scholarships/create/', views.create_scholarship),
+    path('scholarships/',views.get_all_scholarships),
+    path('scholarships/<int:scholarship_id>/',views.get_scholarship_by_id),
+    path('scholarships/update/',views.update_scholarship),
+    path('scholarships/delete/',views.delete_scholarship),
+    path('save-scholarship/',views.save_scholarship),
+    path('saved-scholarships/',views.get_saved_scholarships),
+    path('remove-saved-scholarship/',views.remove_saved_scholarship),
+    path('apply-scholarship/',views.apply_scholarship),
+    path('my-applications/',views.my_applications),
+    path('application-tracker/<int:application_id>/',views.application_tracker),
+    path('provider-dashboard/', views.provider_dashboard),
+    path('provider-scholarships/',views.provider_scholarships),
+    path('manage-applications/',views.manage_applications),
+    path('application-review/<int:application_id>/',views.application_review),
+    path('update-application-status/',views.update_application_status),
+    path('admin-dashboard/',views.admin_dashboard),
+    path('manage-users/',views.manage_users),
+    path('create-provider/',views.create_provider),
+    path('manage-providers/',views.manage_providers),
+    path('approve-provider/',views.approve_provider),
+    path('admin-manage-scholarships/',views.admin_manage_scholarships),
+    path('reports-analytics/',views.reports_analytics),
+    path('create-notification/',views.create_notification),
+    path('notifications/',views.get_notifications),
+    path('create-activity-log/',views.create_activity_log),
+    path('activity-logs/',views.get_activity_logs),
+    path("scholarships/", views.get_all_scholarships),
+    path("filter-scholarships/", views.filter_scholarships),
+    path("values/", views.values_demo),
+    path("values-list/", views.values_list_demo),
+    path("values-list-flat/", views.values_list_flat_demo),
+    path("count/", views.count_demo),
+    path("update/", views.update_demo),
+    path("save/", views.save_demo),
+    path("aggregate/", views.aggregate_demo),
+    
+]
+
+
+
+
