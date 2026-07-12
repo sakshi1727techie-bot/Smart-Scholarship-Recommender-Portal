@@ -1,7 +1,10 @@
 from django.urls import path
 from . import views
+from .views import home
 
 urlpatterns = [
+
+    path('', home),
 
     # USER
     path('create-user/', views.create_user),
@@ -60,7 +63,3 @@ urlpatterns = [
     path("aggregate/", views.aggregate_demo),
     
 ]
-
-
-
-

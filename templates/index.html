@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Landing Page</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f8f9fc;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-size: 42px;
+            font-weight: 700;
+            color: #0d4aa8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .nav-links a.active {
+            color: #0d4aa8;
+            font-weight: 600;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .signin {
+            text-decoration: none;
+            color: #444;
+        }
+
+        .apply-btn {
+            background: #0d4aa8;
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: auto;
+            padding: 70px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hero-left {
+            flex: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #efe5ff;
+            color: #7b3ff2;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .hero-left h1 {
+            font-size: 60px;
+            color: #0d4aa8;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .hero-left p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .create-btn {
+            background: #0d4aa8;
+            color: white;
+            border: none;
+            padding: 15px 28px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 15px 28px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar-group {
+            display: flex;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ddd;
+            margin-left: -10px;
+            border: 3px solid white;
+        }
+
+        .hero-right {
+            flex: 1;
+        }
+
+        .hero-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero-card img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        /* Stats */
+        .stats {
+            max-width: 1200px;
+            margin: 40px auto 80px;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: white;
+            border: 1px solid #e8e8e8;
+            text-align: center;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .stat-box h2 {
+            color: #0d4aa8;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .stat-box p {
+            color: #666;
+        }
+
+        /* Footer */
+        .footer {
+            background: #ececef;
+            padding: 25px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left h3 {
+            color: #0d4aa8;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">ScholarStep</div>
+
+        <ul class="nav-links">
+            <li><a href="#" class="active">Discover</a></li>
+            <li><a href="#">Applications</a></li>
+            <li><a href="#">Resources</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <a href="{% url 'role' %}" class="signin">Sign In</a>
+
+            <button class="apply-btn" onclick="window.location.href='{% url 'role' %}'">
+                Apply Now
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+
+        <div class="hero-left">
+            <span class="tag">✨ Personalized Matching AI</span>
+
+            <h1>
+                Find Scholarships <br>
+                That Match Your <br>
+                Future
+            </h1>
+
+            <p>
+                ScholarStep uses advanced data mapping to connect students
+                with exclusive funding opportunities. Simplify your
+                applications and unlock your academic potential today.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="create-btn" onclick="window.location.href='{% url 'role' %}'">
+                    Create Account →
+                </button>
+
+                <button class="login-btn" onclick="window.location.href='{% url 'role' %}'">
+                    Login
+                </button>
+
+            </div>
+
+            <div class="rating">
+                <div class="avatar-group">
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                </div>
+
+                <div>
+                    <strong>4.8/5 Rating</strong><br>
+                    <small>by 12,000+ Students</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-card">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900" alt="Students">
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+
+        <div class="stat-box">
+            <h2>$2B+</h2>
+            <p>Available Funding</p>
+        </div>
+
+        <div class="stat-box">
+            <h2>50k+</h2>
+            <p>Scholarships</p>
+        </div>
+
+        <div class="stat-box">
+            <h2>92%</h2>
+            <p>Match Accuracy</p>
+        </div>
+
+        <div class="stat-box">
+            <h2>15min</h2>
+            <p>Setup Time</p>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="footer-left">
+            <h3>ScholarStep</h3>
+            <small>© 2024 ScholarStep Inc. All rights reserved.</small>
+        </div>
+
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="socials">
+            <div class="social">🌐</div>
+            <div class="social">✈️</div>
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

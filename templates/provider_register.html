@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScholarStep — Scholarship Provider Registration</title>
+    <style>
+        :root {
+            --navy-900: #0e1f4d;
+            --navy-800: #132a63;
+            --navy-700: #1a3a82;
+            --blue-600: #2757c9;
+            --ink: #12172b;
+            --muted: #6b7180;
+            --line: #e6e4de;
+            --bg: #f7f5f0;
+            --panel-bg: #eeecf5;
+            --card: #ffffff;
+            --error: #c0392b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            color: var(--ink);
+            background: var(--bg);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 48px;
+            background: var(--card);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 19px;
+            color: var(--navy-800);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 36px;
+        }
+
+        nav a {
+            font-size: 14px;
+            color: #3a3f4d;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--navy-800);
+        }
+
+        .login-btn {
+            background: var(--navy-800);
+            color: #fff;
+            font-weight: 600;
+            font-size: 13.5px;
+            padding: 10px 22px;
+            border-radius: 8px;
+        }
+
+        .login-btn:hover {
+            background: var(--navy-900);
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .info-panel {
+            background: var(--panel-bg);
+            padding: 56px 56px 64px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .art-card {
+            background: var(--card);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 32px;
+            border: 1px solid var(--line);
+        }
+
+        .art {
+            width: 100%;
+            display: block;
+        }
+
+        .info-panel h1 {
+            font-size: 26px;
+            line-height: 1.3;
+            font-weight: 800;
+            color: var(--navy-900);
+            margin-bottom: 14px;
+            max-width: 420px;
+        }
+
+        .info-panel>p {
+            font-size: 14px;
+            line-height: 1.65;
+            color: var(--muted);
+            max-width: 400px;
+            margin-bottom: 32px;
+        }
+
+        .badge-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .badge-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 22px 16px;
+            text-align: center;
+        }
+
+        .badge-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #e8ecfb;
+            color: var(--navy-700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            margin: 0 auto 12px;
+        }
+
+        .badge-card span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .form-panel {
+            background: var(--card);
+            padding: 48px 64px 56px;
+            border-left: 1px solid var(--line);
+        }
+
+        .step-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: .02em;
+        }
+
+        .step-row .step-label {
+            color: var(--navy-700);
+        }
+
+        .step-row .step-title {
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .progress-track {
+            height: 5px;
+            background: var(--line);
+            border-radius: 99px;
+            overflow: hidden;
+            margin-bottom: 26px;
+        }
+
+        .progress-fill {
+            width: 34%;
+            height: 100%;
+            background: var(--navy-700);
+            border-radius: 99px;
+        }
+
+        .form-panel h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .form-panel>p.sub {
+            font-size: 13.5px;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--navy-700);
+            letter-spacing: .06em;
+            margin: 24px 0 14px;
+        }
+
+        .section-label:first-of-type {
+            margin-top: 0;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #3a3f4d;
+        }
+
+        .field .hint {
+            font-size: 11.5px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            padding: 11px 13px;
+            font-size: 13.5px;
+            color: var(--ink);
+            background: var(--card);
+            font-family: inherit;
+            outline: none;
+            resize: none;
+            transition: border-color .15s ease, box-shadow .15s ease;
+        }
+
+        .field input::placeholder,
+        .field textarea::placeholder {
+            color: #aeb0ba;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: var(--blue-600);
+            box-shadow: 0 0 0 3px rgba(39, 87, 201, 0.12);
+        }
+
+        .field.invalid input,
+        .field.invalid select,
+        .field.invalid textarea {
+            border-color: var(--error);
+        }
+
+        .field-error {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--error);
+            min-height: 0;
+            display: none;
+            line-height: 1.4;
+        }
+
+        .field-error.visible {
+            display: block;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 12.5px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 22px 0 4px;
+        }
+
+        .terms input {
+            margin-top: 3px;
+        }
+
+        .terms-field .field-error {
+            margin: 0 0 14px 26px;
+        }
+
+        .form-status {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--error);
+            min-height: 18px;
+            margin-bottom: 14px;
+            display: none;
+        }
+
+        .form-status.visible {
+            display: block;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 14px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 18px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+        }
+
+        .btn-outline {
+            background: var(--card);
+            color: var(--navy-700);
+            border: 1.5px solid var(--navy-700);
+        }
+
+        .btn-outline:hover {
+            background: #eef1fb;
+        }
+
+        .btn-solid {
+            background: var(--navy-800);
+            color: #fff;
+            box-shadow: 0 10px 20px -8px rgba(19, 42, 99, 0.55);
+        }
+
+        .btn-solid:hover:not(:disabled) {
+            background: var(--navy-900);
+            transform: translateY(-1px);
+        }
+
+        .btn-solid:disabled {
+            background: #d6d5db;
+            color: #8a8d99;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        footer {
+            background: var(--navy-900);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 44px 48px 24px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1fr;
+            gap: 32px;
+        }
+
+        .footer-grid h4 {
+            font-size: 12px;
+            letter-spacing: .05em;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            font-size: 17px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .footer-grid p {
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+            max-width: 220px;
+        }
+
+        .footer-grid ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-grid ul a {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .footer-grid ul a:hover {
+            color: #fff;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icons span {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+
+        @media (max-width:960px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            .form-panel {
+                border-left: none;
+                border-top: 1px solid var(--line);
+            }
+
+            header {
+                padding: 16px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .info-panel,
+            .form-panel {
+                padding: 36px 24px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 28px;
+            }
+        }
+
+        @media (max-width:560px) {
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .badge-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-panel h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">ScholarStep</div>
+        <nav>
+            <ul>
+                <li><a href="#">Scholarships</a></li>
+                <li><a href="#">Mentorship</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
+        <a class="login-btn" href="#">Login</a>
+    </header>
+
+    <main>
+        <section class="info-panel">
+            <div class="art-card">
+                <svg class="art" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="500" height="300" fill="#eef1fb" />
+                    <rect x="0" y="0" width="500" height="185" fill="#f5f7fd" />
+                    <rect x="0" y="180" width="500" height="120" fill="#dfe4f4" />
+                    <rect x="150" y="60" width="200" height="110" rx="4" fill="#1a3a82" />
+                    <rect x="160" y="70" width="180" height="80" fill="#0f2864" />
+                    <path d="M175 130 L195 100 L215 112 L235 85 L255 100 L275 90 L300 95 L325 105" fill="none"
+                        stroke="#4ee0c6" stroke-width="2.5" />
+                    <circle cx="215" cy="112" r="3" fill="#4ee0c6" />
+                    <circle cx="255" cy="100" r="3" fill="#4ee0c6" />
+                    <rect x="235" y="170" width="30" height="14" fill="#8f9bc9" />
+                    <rect x="215" y="184" width="70" height="8" rx="2" fill="#8f9bc9" />
+                    <ellipse cx="250" cy="252" rx="150" ry="14" fill="#c9cfe6" />
+                    <rect x="150" y="200" width="200" height="16" rx="3" fill="#c3cdea" />
+                    <rect x="170" y="216" width="14" height="36" fill="#c3cdea" />
+                    <rect x="316" y="216" width="14" height="36" fill="#c3cdea" />
+                    <g transform="translate(95,168)">
+                        <ellipse cx="20" cy="82" rx="26" ry="6" fill="#c9cfe6" opacity="0.6" />
+                        <rect x="6" y="46" width="28" height="34" rx="6" fill="#25408f" />
+                        <circle cx="20" cy="34" r="13" fill="#e8b98a" />
+                        <path d="M7 34 a13 13 0 0 1 26 0 v4 h-26 z" fill="#2b2f3d" />
+                        <rect x="0" y="52" width="10" height="22" rx="4" fill="#1a3a82" />
+                        <rect x="30" y="52" width="10" height="22" rx="4" fill="#1a3a82" />
+                    </g>
+                    <g transform="translate(160,180)">
+                        <ellipse cx="20" cy="78" rx="26" ry="6" fill="#c9cfe6" opacity="0.6" />
+                        <rect x="6" y="42" width="28" height="34" rx="6" fill="#173485" />
+                        <circle cx="20" cy="30" r="13" fill="#f0c9a0" />
+                        <path d="M7 30 a13 13 0 0 1 26 0 v4 h-26 z" fill="#3d2b22" />
+                    </g>
+                    <g transform="translate(300,180)">
+                        <ellipse cx="24" cy="78" rx="28" ry="6" fill="#c9cfe6" opacity="0.6" />
+                        <rect x="8" y="42" width="32" height="34" rx="6" fill="#25408f" />
+                        <circle cx="24" cy="30" r="14" fill="#e8b98a" />
+                        <path d="M9 30 a15 15 0 0 1 30 0 v3 h-30 z" fill="#1c1f2b" />
+                    </g>
+                    <g transform="translate(378,168)">
+                        <ellipse cx="20" cy="82" rx="26" ry="6" fill="#c9cfe6" opacity="0.6" />
+                        <rect x="6" y="46" width="28" height="34" rx="6" fill="#1a3a82" />
+                        <circle cx="20" cy="34" r="13" fill="#f0c9a0" />
+                        <path d="M7 34 a13 13 0 0 1 26 0 v4 h-26 z" fill="#463020" />
+                    </g>
+                </svg>
+            </div>
+
+            <h1>Connect deserving students with funding opportunities.</h1>
+            <p>Create, manage and track scholarship programs through the ScholarStep platform.</p>
+
+            <div class="badge-cards">
+                <div class="badge-card">
+                    <div class="badge-icon">✅</div>
+                    <span>Trusted Organization</span>
+                </div>
+                <div class="badge-card">
+                    <div class="badge-icon">🏅</div>
+                    <span>Verified Publisher</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-panel">
+            <div class="step-row">
+                <span class="step-label">STEP 1 OF 3</span>
+                <span class="step-title">Basic Details</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+            </div>
+
+            <h2>Scholarship Provider Registration</h2>
+            <p class="sub">Tell us about your organization to get started.</p>
+
+            <div class="section-label">ORGANIZATION DETAILS</div>
+            <div class="field-grid">
+                <div class="field full" data-field="orgname">
+                    <label for="orgname">Organization / Institute Name</label>
+                    <input id="orgname" type="text" placeholder="e.g. Global Education Foundation">
+                    <span class="field-error" id="orgnameError"></span>
+                </div>
+                <div class="field" data-field="orgtype">
+                    <label for="orgtype">Organization Type</label>
+                    <select id="orgtype">
+                        <option value="">Select Organization Type</option>
+                        <option value="Government">Government</option>
+                        <option value="Private">Private</option>
+                        <option value="NGO">NGO</option>
+                        <option value="Foundation">Foundation</option>
+                        <option value="University">University</option>
+                    </select>
+                    <span class="field-error" id="orgtypeError"></span>
+                </div>
+                <div class="field" data-field="location">
+                    <label for="location">Location / State</label>
+                    <select id="location">
+                        <option value="">Select State</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <span class="field-error" id="locationError"></span>
+                </div>
+                <div class="field" data-field="email">
+                    <label for="email">Official Email</label>
+                    <input id="email" type="email" placeholder="contact@org.com">
+                    <span class="field-error" id="emailError"></span>
+                </div>
+                <div class="field" data-field="website">
+                    <label for="website">Website URL <span class="hint">(optional)</span></label>
+                    <input id="website" type="url" placeholder="https://example.com">
+                    <span class="field-error" id="websiteError"></span>
+                </div>
+            </div>
+
+            <div class="section-label">CONTACT REPRESENTATIVE</div>
+            <div class="field-grid">
+                <div class="field full" data-field="fullname">
+                    <label for="fullname">Contact Person Name</label>
+                    <input id="fullname" type="text" placeholder="John Doe">
+                    <span class="field-error" id="fullnameError"></span>
+                </div>
+                <div class="field full" data-field="mobile">
+                    <label for="mobile">Phone Number</label>
+                    <input id="mobile" type="tel" placeholder="+91 98765 43210">
+                    <span class="field-error" id="mobileError"></span>
+                </div>
+            </div>
+
+            <div class="section-label">SCHOLARSHIP SCOPE</div>
+            <div class="field-grid">
+                <div class="field full" data-field="budget">
+                    <label for="budget">Scholarship Budget Range</label>
+                    <select id="budget">
+                        <option value="">Select Budget Range</option>
+                        <option value="Under $10,000">Under $10,000</option>
+                        <option value="$10,000 - $50,000">$10,000 – $50,000</option>
+                        <option value="$50,000 - $100,000">$50,000 – $100,000</option>
+                        <option value="$100,000 - $500,000">$100,000 – $500,000</option>
+                        <option value="Above $500,000">Above $500,000</option>
+                    </select>
+                    <span class="field-error" id="budgetError"></span>
+                </div>
+            </div>
+
+            <div class="section-label">SECURITY</div>
+            <div class="field-grid">
+                <div class="field" data-field="password">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" placeholder="••••••••">
+                    <span class="field-error" id="passwordError"></span>
+                </div>
+                <div class="field" data-field="confirm">
+                    <label for="confirm">Confirm Password</label>
+                    <input id="confirm" type="password" placeholder="••••••••">
+                    <span class="field-error" id="confirmError"></span>
+                </div>
+            </div>
+
+            <label class="terms">
+                <input type="checkbox" id="terms">
+                <span>I certify that all provided information is accurate and that I am authorized to represent this
+                    organization.</span>
+            </label>
+            <div class="terms-field" data-field="terms">
+                <span class="field-error" id="termsError"></span>
+            </div>
+
+            <div class="form-status" id="formStatus">Please fix the highlighted fields below.</div>
+
+            <div class="btn-row">
+                <button class="btn btn-outline" type="button">Back</button>
+                <button class="btn btn-solid" id="registerBtn" type="button" disabled
+                    onclick="registerProvider()">Register</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">ScholarStep</div>
+                <p>© 2024 ScholarStep. Empowering academic excellence.</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">For Partners</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <span>🔗</span>
+                    <span>👥</span>
+                    <span>▶️</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const ROLE = "provider";
+        const STORAGE_KEYS = {
+            student: "registeredStudents",
+            provider: "registeredProviders",
+            admin: "registeredAdmins"
+        };
+
+        const btn = document.getElementById("registerBtn");
+        const statusEl = document.getElementById("formStatus");
+
+        // Tracks which fields the user has interacted with, so an error
+        // only shows after the user has actually touched that field.
+        const touched = new Set();
+        let formSubmitAttempted = false;
+
+        // --------------------------------------------------------------
+        // Pure format validators
+        // --------------------------------------------------------------
+        function isValidName(value) {
+            // Letters, spaces, hyphens and apostrophes only (covers names
+            // like "Mary-Jane" or "O'Neil"). No digits or symbols.
+            return /^[A-Za-z][A-Za-z\s'-]*$/.test(value.trim());
+        }
+
+        function isValidEmail(value) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+            return emailPattern.test(value.trim());
+        }
+
+        function isValidPhone(value) {
+            // Strips spaces, dashes and parentheses so formats like
+            // "+91 98765 43210" or "+91-98765-43210" validate correctly.
+            // Accepts an optional leading "+" followed by 10-15 digits.
+            const cleaned = value.trim().replace(/[\s\-()]/g, "");
+            return /^\+?[0-9]{10,15}$/.test(cleaned);
+        }
+
+        function isValidWebsite(value) {
+            const trimmed = value.trim();
+            if (trimmed === "") return true; // optional field
+            try {
+                const url = new URL(trimmed);
+                return url.protocol === "http:" || url.protocol === "https:";
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // --------------------------------------------------------------
+        // Per-field validation rules. Each returns { value, valid, message }.
+        // This object is the single source of truth used by both real-time
+        // (input/change/blur) and submit-time validation, so they can
+        // never drift apart from each other.
+        // --------------------------------------------------------------
+        const fieldValidators = {
+            orgname: () => {
+                const value = document.getElementById("orgname").value.trim();
+                return { value, valid: value.length > 0, message: "Organization name is required" };
+            },
+            orgtype: () => {
+                const value = document.getElementById("orgtype").value.trim();
+                return { value, valid: value !== "", message: "Please select an organization type" };
+            },
+            location: () => {
+                const value = document.getElementById("location").value.trim();
+                return { value, valid: value !== "", message: "Please select a state" };
+            },
+            email: () => {
+                const value = document.getElementById("email").value.trim();
+                if (value.length === 0) return { value, valid: false, message: "Email is required" };
+                return { value, valid: isValidEmail(value), message: "Please enter a valid email address" };
+            },
+            website: () => {
+                const value = document.getElementById("website").value.trim();
+                return { value, valid: isValidWebsite(value), message: "Please enter a valid URL (starting with http:// or https://)" };
+            },
+            fullname: () => {
+                const value = document.getElementById("fullname").value.trim();
+                if (value.length === 0) return { value, valid: false, message: "Contact person name is required" };
+                return { value, valid: isValidName(value), message: "Name may only contain letters, spaces and hyphens" };
+            },
+            mobile: () => {
+                const value = document.getElementById("mobile").value.trim();
+                if (value.length === 0) return { value, valid: false, message: "Phone number is required" };
+                return { value, valid: isValidPhone(value), message: "Enter a valid phone number (10-15 digits, e.g. +91 98765 43210)" };
+            },
+            budget: () => {
+                const value = document.getElementById("budget").value.trim();
+                return { value, valid: value !== "", message: "Please select a budget range" };
+            },
+            password: () => {
+                const value = document.getElementById("password").value;
+                return { value, valid: value.length >= 6, message: "Password must be at least 6 characters" };
+            },
+            confirm: () => {
+                const value = document.getElementById("confirm").value;
+                const password = document.getElementById("password").value;
+                if (value.length === 0) return { value, valid: false, message: "Please confirm your password" };
+                return { value, valid: value === password, message: "Passwords do not match" };
+            },
+            terms: () => {
+                const value = document.getElementById("terms").checked;
+                return { value, valid: value === true, message: "Please accept the terms and conditions" };
+            }
+        };
+
+        // --------------------------------------------------------------
+        // Central validation engine — the ONLY function allowed to decide
+        // whether the form, as a whole, is valid. Every other check
+        // (button state, submit guard, inline errors) reads from this.
+        // --------------------------------------------------------------
+        function validateAll() {
+            const results = {};
+            const values = {};
+            Object.keys(fieldValidators).forEach(field => {
+                const result = fieldValidators[field]();
+                results[field] = result;
+                values[field] = result.value;
+            });
+            const isValid = Object.values(results).every(r => r.valid);
+            return { values, results, isValid };
+        }
+
+        function renderFieldError(field, result) {
+            const errorEl = document.getElementById(field + "Error");
+            const wrapper = document.querySelector(`[data-field="${field}"]`);
+            const shouldShow = (touched.has(field) || formSubmitAttempted) && !result.valid;
+
+            if (errorEl) {
+                errorEl.textContent = shouldShow ? result.message : "";
+                errorEl.classList.toggle("visible", shouldShow);
+            }
+            if (wrapper) {
+                wrapper.classList.toggle("invalid", shouldShow);
+            }
+        }
+
+        // Runs the central validator, refreshes every inline message, and
+        // sets the button's disabled state directly from isValid. The
+        // button never has any other path to becoming enabled.
+        function checkForm() {
+            const { results, isValid } = validateAll();
+
+            Object.keys(results).forEach(field => renderFieldError(field, results[field]));
+
+            btn.disabled = !isValid;
+
+            const anyTouchedInvalid = Object.keys(results).some(
+                field => (touched.has(field) || formSubmitAttempted) && !results[field].valid
+            );
+            statusEl.classList.toggle("visible", anyTouchedInvalid);
+
+            return isValid;
+        }
+
+        // --------------------------------------------------------------
+        // localStorage-backed store, namespaced per role, with email
+        // uniqueness enforced ACROSS all three roles.
+        // --------------------------------------------------------------
+        function getRegistered(role) {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEYS[role]);
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveRegistered(role, record) {
+            const list = getRegistered(role);
+            list.push(record);
+            localStorage.setItem(STORAGE_KEYS[role], JSON.stringify(list));
+        }
+
+        function emailTakenAcrossRoles(email) {
+            const normalized = email.trim().toLowerCase();
+            return Object.keys(STORAGE_KEYS).some(role =>
+                getRegistered(role).some(p => (p.email || "").trim().toLowerCase() === normalized)
+            );
+        }
+
+        function orgNameTaken(orgname) {
+            const normalized = orgname.trim().toLowerCase();
+            return getRegistered("provider").some(p => (p.orgname || "").trim().toLowerCase() === normalized);
+        }
+
+        function registerProvider() {
+            formSubmitAttempted = true;
+
+            // Re-run the SAME central validator used for the button state.
+            // If this ever disagrees with btn.disabled, isValid wins —
+            // the button is only a reflection of this function, never an
+            // independent source of truth.
+            const { values, isValid } = validateAll();
+            checkForm();
+
+            if (!isValid) {
+                const { results } = validateAll();
+                const firstInvalid = Object.keys(results).find(field => !results[field].valid);
+                if (firstInvalid) {
+                    const input = document.getElementById(firstInvalid);
+                    if (input && typeof input.focus === "function") input.focus();
+                }
+                return;
+            }
+
+            if (orgNameTaken(values.orgname)) {
+                alert("This organization is already registered.");
+                return;
+            }
+
+            if (emailTakenAcrossRoles(values.email)) {
+                alert("This email is already registered.");
+                return;
+            }
+
+            const originalLabel = btn.innerText;
+            btn.innerText = "Registering...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                saveRegistered("provider", {
+                    orgname: values.orgname,
+                    orgtype: values.orgtype,
+                    location: values.location,
+                    email: values.email,
+                    website: values.website,
+                    fullname: values.fullname,
+                    mobile: values.mobile,
+                    budget: values.budget,
+                    password: values.password,
+                    role: "provider"
+                });
+
+                alert("Your registration was successful.");
+                btn.innerText = originalLabel;
+
+                // window.location.href = "{% url 'verification' %}";
+            }, 1000);
+        }
+
+        // Real-time validation: mark the field touched, then re-check the
+        // whole form (cheap at this size, and keeps cross-field rules like
+        // password/confirm perfectly in sync).
+        Object.keys(fieldValidators).forEach(field => {
+            const el = document.getElementById(field);
+            if (!el) return;
+            const handler = () => {
+                touched.add(field);
+                if (field === "password") touched.add("confirm");
+                checkForm();
+            };
+            el.addEventListener("input", handler);
+            el.addEventListener("change", handler);
+            el.addEventListener("blur", handler);
+        });
+
+        // Initial state: button disabled, no error messages shown yet.
+        checkForm();
+    </script>
+
+</body>
+
+</html>

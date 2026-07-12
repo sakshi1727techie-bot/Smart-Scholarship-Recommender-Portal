@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScholarStep — Empowering Your Academic Ambition</title>
+    <style>
+        :root {
+            --navy-900: #0e2a63;
+            --navy-800: #153a82;
+            --blue-700: #1d4fb0;
+            --blue-600: #2757c9;
+            --blue-500: #3b6bdb;
+            --blue-400: #5f86e0;
+            --ink: #1b2436;
+            --muted: #6b7590;
+            --line: #e3e7f0;
+            --bg: #f6f8fc;
+            --white: #ffffff;
+            --error: #c0392b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            color: var(--ink);
+            background: var(--bg);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 48px;
+            background: var(--white);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--blue-700);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 36px;
+        }
+
+        nav a {
+            font-size: 14.5px;
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--blue-700);
+        }
+
+        .login-link {
+            font-weight: 600;
+            color: var(--blue-700);
+            font-size: 14.5px;
+        }
+
+        /* MAIN SPLIT */
+        main {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 32px;
+            padding: 32px 48px;
+        }
+
+        /* HERO PANEL */
+        .hero {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            min-height: 640px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 44px;
+            color: var(--white);
+            background: var(--blue-500);
+        }
+
+        .hero-art {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(14, 42, 99, 0.05) 0%, rgba(14, 42, 99, 0.25) 45%, rgba(14, 42, 99, 0.95) 100%);
+            z-index: 1;
+        }
+
+        .hero>*:not(.hero-art):not(.hero-overlay) {
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            width: fit-content;
+            margin-bottom: 18px;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            line-height: 1.15;
+            font-weight: 700;
+            max-width: 460px;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 420px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 32px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 14px;
+            padding: 18px 22px;
+            min-width: 150px;
+        }
+
+        .stat-card .num {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--blue-700);
+        }
+
+        .stat-card .label {
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+
+        /* FORM PANEL */
+        .form-panel {
+            background: var(--white);
+            border-radius: 24px;
+            border: 1px solid var(--line);
+            padding: 40px 44px;
+            box-shadow: 0 20px 40px -28px rgba(20, 40, 90, 0.25);
+        }
+
+        .step-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12.5px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step-row .step-label {
+            color: var(--blue-700);
+        }
+
+        .step-row .step-title {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .progress-track {
+            height: 5px;
+            background: var(--line);
+            border-radius: 99px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            width: 34%;
+            height: 100%;
+            background: var(--blue-700);
+            border-radius: 99px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 26px 0 16px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .icon-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 7px;
+            background: var(--blue-700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .field input,
+        .field select {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 11px 13px;
+            font-size: 14px;
+            color: var(--ink);
+            background: var(--white);
+            font-family: inherit;
+            outline: none;
+            transition: border-color .15s ease, box-shadow .15s ease;
+        }
+
+        .field input::placeholder {
+            color: #a8b0c3;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--blue-600);
+            box-shadow: 0 0 0 3px rgba(39, 87, 201, 0.12);
+        }
+
+        .field.invalid input,
+        .field.invalid select {
+            border-color: var(--error);
+        }
+
+        /* Inline, field-specific error message shown directly under an input */
+        .field-error {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--error);
+            display: none;
+            line-height: 1.4;
+        }
+
+        .field-error.visible {
+            display: block;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 22px 0 4px;
+        }
+
+        .terms input {
+            margin-top: 3px;
+        }
+
+        .terms a {
+            color: var(--blue-700);
+            font-weight: 600;
+        }
+
+        .terms-field .field-error {
+            margin: 0 0 14px 26px;
+        }
+
+        .form-status {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--error);
+            min-height: 18px;
+            margin-bottom: 14px;
+            display: none;
+        }
+
+        .form-status.visible {
+            display: block;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 14px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 13px 18px;
+            border-radius: 10px;
+            font-size: 14.5px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+        }
+
+        .btn-outline {
+            background: var(--white);
+            color: var(--blue-700);
+            border: 1.5px solid var(--blue-700);
+        }
+
+        .btn-outline:hover {
+            background: #eef3ff;
+        }
+
+        .btn-solid {
+            background: var(--blue-700);
+            color: #fff;
+            box-shadow: 0 10px 20px -8px rgba(29, 79, 176, 0.55);
+        }
+
+        .btn-solid:disabled {
+            background: #d8d8dd;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--navy-900);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 44px 48px 28px;
+            margin-top: 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1fr;
+            gap: 32px;
+            padding-bottom: 28px;
+        }
+
+        .footer-grid h4 {
+            font-size: 13px;
+            letter-spacing: .04em;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .footer-grid p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+
+        .footer-grid ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-grid ul a {
+            font-size: 13.5px;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .footer-grid ul a:hover {
+            color: #fff;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icons span {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+            padding-top: 18px;
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.55);
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width:960px) {
+            main {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            header {
+                padding: 16px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                min-height: 420px;
+                padding: 30px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width:560px) {
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">ScholarStep</div>
+        <nav>
+            <ul>
+                <li><a href="#">Scholarships</a></li>
+                <li><a href="#">Mentorship</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
+        <a class="login-link" href="#">Login</a>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+
+            <svg class="hero-art" viewBox="0 0 520 640" preserveAspectRatio="xMidYMid slice"
+                xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <clipPath id="circleClip">
+                        <circle cx="260" cy="260" r="260" />
+                    </clipPath>
+                </defs>
+
+                <rect x="0" y="0" width="520" height="640" fill="#3b6bdb" />
+
+                <g clip-path="url(#circleClip)">
+                    <rect x="0" y="0" width="520" height="520" fill="#3f70de" />
+
+                    <circle cx="260" cy="260" r="230" fill="#4a78e2" />
+                    <circle cx="260" cy="260" r="190" fill="#5482e6" />
+
+                    <g opacity="0.5">
+                        <rect x="150" y="130" width="60" height="90" fill="#6f94ea" />
+                        <polygon points="150,130 180,95 210,130" fill="#6f94ea" />
+                        <rect x="230" y="100" width="70" height="120" fill="#6f94ea" />
+                        <polygon points="230,100 265,60 300,100" fill="#6f94ea" />
+                        <rect x="310" y="140" width="55" height="80" fill="#6f94ea" />
+                        <polygon points="310,140 337,105 365,140" fill="#6f94ea" />
+                    </g>
+
+                    <g fill="#7fa0ee" opacity="0.55">
+                        <circle cx="100" cy="330" r="10" />
+                        <rect x="93" y="338" width="14" height="4" />
+                        <circle cx="420" cy="300" r="12" />
+                        <rect x="411" y="310" width="18" height="5" />
+                    </g>
+
+                    <g transform="translate(70,340)">
+                        <path d="M0 260 C0 180 40 120 100 120 C160 120 200 180 200 260 Z" fill="#25408f" />
+                        <circle cx="100" cy="95" r="42" fill="#0f2864" />
+                        <rect x="72" y="55" width="56" height="10" rx="2" fill="#f5c451" />
+                        <rect x="94" y="48" width="12" height="12" fill="#f5c451" />
+                        <line x1="100" y1="60" x2="100" y2="95" stroke="#f5c451" stroke-width="2" />
+                    </g>
+
+                    <g transform="translate(220,320)">
+                        <path d="M0 280 C0 190 45 130 110 130 C175 130 220 190 220 280 Z" fill="#173485" />
+                        <circle cx="110" cy="100" r="48" fill="#0f2864" />
+                        <rect x="78" y="56" width="64" height="11" rx="2" fill="#f5c451" />
+                        <rect x="104" y="48" width="12" height="12" fill="#f5c451" />
+                        <line x1="110" y1="62" x2="110" y2="100" stroke="#f5c451" stroke-width="2" />
+                    </g>
+
+                    <g transform="translate(340,350)">
+                        <path d="M0 250 C0 175 38 120 92 120 C146 120 184 175 184 250 Z" fill="#25408f" />
+                        <circle cx="92" cy="90" r="40" fill="#0f2864" />
+                        <rect x="66" y="52" width="52" height="10" rx="2" fill="#f5c451" />
+                        <rect x="86" y="45" width="12" height="12" fill="#f5c451" />
+                        <line x1="92" y1="57" x2="92" y2="90" stroke="#f5c451" stroke-width="2" />
+                    </g>
+
+                    <g transform="translate(150,430) rotate(-8)">
+                        <rect x="0" y="0" width="90" height="14" fill="#0f2864" />
+                        <rect x="0" y="14" width="90" height="46" fill="#f4f7fd" />
+                        <line x1="10" y1="26" x2="80" y2="26" stroke="#c3cfe6" stroke-width="2" />
+                        <line x1="10" y1="36" x2="80" y2="36" stroke="#c3cfe6" stroke-width="2" />
+                        <line x1="10" y1="46" x2="60" y2="46" stroke="#c3cfe6" stroke-width="2" />
+                    </g>
+
+                    <g transform="translate(300,450) rotate(6)">
+                        <circle cx="24" cy="24" r="24" fill="#0f2864" />
+                        <circle cx="24" cy="24" r="9" fill="#3f70de" />
+                        <rect x="20" y="-2" width="8" height="10" fill="#0f2864" />
+                        <rect x="20" y="40" width="8" height="10" fill="#0f2864" />
+                        <rect x="-2" y="20" width="10" height="8" fill="#0f2864" />
+                        <rect x="40" y="20" width="10" height="8" fill="#0f2864" />
+                    </g>
+                </g>
+
+                <rect x="0" y="0" width="520" height="640" fill="url(#none)" opacity="0" />
+            </svg>
+
+            <div class="hero-overlay"></div>
+
+            <span class="badge">🛡️ Secure &amp; Verified</span>
+            <h1>Empowering Your Academic Ambition</h1>
+            <p>Your journey to higher education starts here. Join 50,000+ students securing their future through
+                personalized scholarship matching and simplified applications.</p>
+
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="num">$12M+</div>
+                    <div class="label">Funds Disbursed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num">50k+</div>
+                    <div class="label">Active Students</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORM -->
+        <section class="form-panel">
+            <div class="step-row">
+                <span class="step-label">STEP 1 OF 3</span>
+                <span class="step-title">Personal Information</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+            </div>
+
+            <div class="section-title"><span class="icon-dot">👤</span> Personal Details</div>
+            <div class="field-grid">
+                <div class="field" data-field="fullname">
+                    <label for="fullname">Full Name</label>
+                    <input id="fullname" type="text" placeholder="John Doe">
+                    <span class="field-error" id="fullnameError"></span>
+                </div>
+                <div class="field" data-field="email">
+                    <label for="email">Email Address</label>
+                    <input id="email" type="email" placeholder="john@example.com">
+                    <span class="field-error" id="emailError"></span>
+                </div>
+                <div class="field" data-field="mobile">
+                    <label for="mobile">Mobile Number</label>
+                    <input id="mobile" type="tel" placeholder="+91 98765 43210">
+                    <span class="field-error" id="mobileError"></span>
+                </div>
+                <div class="field" data-field="state">
+                    <label for="state">State/Province</label>
+                    <select id="state">
+                        <option value="">Select State</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Karnataka">Karnataka</option>
+                    </select>
+                    <span class="field-error" id="stateError"></span>
+                </div>
+            </div>
+
+            <div class="section-title"><span class="icon-dot">🎓</span> Academic Profile</div>
+            <div class="field-grid">
+                <div class="field" data-field="edu">
+                    <label for="edu">Education Level</label>
+                    <select id="edu">
+                        <option value="">Select Education Level</option>
+                        <option value="Undergraduate">Undergraduate</option>
+                        <option value="Graduate">Graduate</option>
+                        <option value="High School">High School</option>
+                    </select>
+                    <span class="field-error" id="eduError"></span>
+                </div>
+                <div class="field" data-field="category">
+                    <label for="category">Category</label>
+                    <select id="category">
+                        <option value="">Select Category</option>
+                        <option value="General">General</option>
+                        <option value="OBC">OBC</option>
+                        <option value="SC/ST">SC/ST</option>
+                    </select>
+                    <span class="field-error" id="categoryError"></span>
+                </div>
+                <div class="field full" data-field="income">
+                    <label for="income">Annual Family Income</label>
+                    <input id="income" type="text" inputmode="numeric" placeholder="Enter amount in USD">
+                    <span class="field-error" id="incomeError"></span>
+                </div>
+            </div>
+
+            <div class="section-title"><span class="icon-dot">🔒</span> Security</div>
+            <div class="field-grid">
+                <div class="field" data-field="password">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" placeholder="••••••••">
+                    <span class="field-error" id="passwordError"></span>
+                </div>
+                <div class="field" data-field="confirm">
+                    <label for="confirm">Confirm Password</label>
+                    <input id="confirm" type="password" placeholder="••••••••">
+                    <span class="field-error" id="confirmError"></span>
+                </div>
+            </div>
+
+            <label class="terms">
+                <input type="checkbox" id="terms">
+                <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</span>
+            </label>
+            <div class="terms-field" data-field="terms">
+                <span class="field-error" id="termsError"></span>
+            </div>
+
+            <div class="form-status" id="formStatus">Please fix the highlighted fields below.</div>
+
+            <div class="btn-row">
+                <button class="btn btn-outline" type="button">
+                    Back
+                </button>
+
+                <button class="btn btn-solid" id="registerBtn" type="button" onclick="registerUser()">
+                    Register
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class=" footer-grid">
+            <div>
+                <div class="footer-brand">ScholarStep</div>
+                <p>© 2024 ScholarStep. Empowering academic excellence.</p>
+            </div>
+            <div>
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">For Partners</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <span>🌐</span>
+                    <span>🔗</span>
+                    <span>✉️</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">Made with care for students everywhere.</div>
+    </footer>
+
+    <script>
+
+        const btn = document.getElementById("registerBtn");
+        const statusEl = document.getElementById("formStatus");
+
+        // Tracks which fields the user has interacted with, so a field's
+        // error only appears after it's actually been touched — not on a
+        // fresh, empty page load.
+        const touched = new Set();
+        let formSubmitAttempted = false;
+
+        // ------------------------------------------------------------------
+        // Low-level format validators (pure functions, no DOM access)
+        // ------------------------------------------------------------------
+        function isValidFullName(value) {
+            // Letters and spaces only (supports names with multiple words).
+            const namePattern = /^[A-Za-z\s]+$/;
+            return value.trim().length > 0 && namePattern.test(value.trim());
+        }
+
+        function isValidEmail(value) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailPattern.test(value.trim());
+        }
+
+        function isValidMobile(value) {
+            // Strips spaces, dashes and parentheses so normal Indian formats
+            // like "+91 98765 43210", "+91-98765-43210" or "(987) 654-3210"
+            // are all accepted, then requires an optional leading "+"
+            // followed by 10-15 digits.
+            const cleaned = value.trim().replace(/[\s\-()]/g, "");
+            const mobilePattern = /^\+?[0-9]{10,15}$/;
+            return mobilePattern.test(cleaned);
+        }
+
+        function isValidIncome(value) {
+            // Numeric only (digits, optional decimal portion), commas allowed
+            // for readability (e.g. "50,000") but stripped before testing.
+            const cleaned = value.trim().replace(/,/g, "");
+            const numericPattern = /^\d+(\.\d{1,2})?$/;
+            return numericPattern.test(cleaned);
+        }
+
+        // ------------------------------------------------------------------
+        // Per-field validation rules. Each entry knows how to read its own
+        // value and returns { value, valid, message }. This is the single
+        // source of truth used by both real-time (input/change) and
+        // submit-time validation, so the two can never drift apart.
+        // ------------------------------------------------------------------
+        const fieldValidators = {
+            fullname: () => {
+                const value = document.getElementById("fullname").value.trim();
+                if (value.length === 0) return { value, valid: false, message: "Please enter your full name" };
+                return { value, valid: isValidFullName(value), message: "Please enter a valid full name" };
+            },
+            email: () => {
+                const value = document.getElementById("email").value.trim();
+                if (value.length === 0) return { value, valid: false, message: "Email is required" };
+                return { value, valid: isValidEmail(value), message: "Invalid email format" };
+            },
+            mobile: () => {
+                const value = document.getElementById("mobile").value.trim();
+                if (value.length === 0) return { value, valid: false, message: "Mobile number is required" };
+                return { value, valid: isValidMobile(value), message: "Invalid mobile number (must support +91 format)" };
+            },
+            state: () => {
+                const value = document.getElementById("state").value.trim();
+                return { value, valid: value !== "", message: "Please select a state" };
+            },
+            edu: () => {
+                const value = document.getElementById("edu").value.trim();
+                return { value, valid: value !== "", message: "Please select your education level" };
+            },
+            category: () => {
+                const value = document.getElementById("category").value.trim();
+                return { value, valid: value !== "", message: "Please select a category" };
+            },
+            income: () => {
+                const value = document.getElementById("income").value.trim();
+                if (value.length === 0) return { value, valid: false, message: "Annual income is required" };
+                return { value, valid: isValidIncome(value), message: "Income must be a valid number" };
+            },
+            password: () => {
+                const value = document.getElementById("password").value;
+                return { value, valid: value.length >= 6, message: "Password must be at least 6 characters" };
+            },
+            confirm: () => {
+                const value = document.getElementById("confirm").value;
+                const password = document.getElementById("password").value;
+                if (value.length === 0) return { value, valid: false, message: "Please confirm your password" };
+                return { value, valid: value === password, message: "Passwords do not match" };
+            },
+            terms: () => {
+                const value = document.getElementById("terms").checked;
+                return { value, valid: value === true, message: "Please accept Terms & Conditions" };
+            }
+        };
+
+        // Runs every validator and returns { values, results } where
+        // results[field] = { value, valid, message }.
+        function validateAll() {
+            const results = {};
+            const values = {};
+            Object.keys(fieldValidators).forEach(field => {
+                const result = fieldValidators[field]();
+                results[field] = result;
+                values[field] = result.value;
+            });
+            return { values, results };
+        }
+
+        // Updates the inline error message + red outline for one field.
+        function renderFieldError(field, result) {
+            const errorEl = document.getElementById(field + "Error");
+            const wrapper = document.querySelector(`[data-field="${field}"]`);
+            const shouldShow = (touched.has(field) || formSubmitAttempted) && !result.valid;
+
+            if (errorEl) {
+                errorEl.textContent = shouldShow ? result.message : "";
+                errorEl.classList.toggle("visible", shouldShow);
+            }
+            if (wrapper) {
+                wrapper.classList.toggle("invalid", shouldShow);
+            }
+        }
+
+        // Main validation entry point: validates every field, updates all
+        // inline messages, and enables/disables the Register button.
+        function checkForm() {
+            const { results } = validateAll();
+
+            Object.keys(results).forEach(field => renderFieldError(field, results[field]));
+
+            const isValid = Object.values(results).every(r => r.valid);
+
+            if (isValid) {
+                btn.disabled = false;
+                btn.style.background = "#0d4aa8";
+                btn.style.cursor = "pointer";
+            } else {
+                btn.disabled = true;
+                btn.style.background = "#d8d8dd";
+                btn.style.cursor = "not-allowed";
+            }
+
+            // General summary line — supplements the inline messages, it is
+            // not the only source of validation feedback.
+            const anyTouchedInvalid = Object.keys(results).some(
+                field => (touched.has(field) || formSubmitAttempted) && !results[field].valid
+            );
+            statusEl.classList.toggle("visible", anyTouchedInvalid);
+
+            return isValid;
+        }
+
+        // ------------------------------------------------------------------
+        // localStorage-backed "registered users" store
+        // ------------------------------------------------------------------
+        function getRegisteredUsers() {
+            try {
+                const raw = localStorage.getItem("registeredUsers");
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveRegisteredUser(user) {
+            const users = getRegisteredUsers();
+            users.push(user);
+            localStorage.setItem("registeredUsers", JSON.stringify(users));
+        }
+
+        function normalizeMobile(value) {
+            return value.trim().replace(/[\s\-()]/g, "");
+        }
+
+        function findUserByEmailOrMobile(email, mobile) {
+            const users = getRegisteredUsers();
+            const normalizedEmail = email.trim().toLowerCase();
+            const normalizedMobile = normalizeMobile(mobile);
+            return {
+                emailExists: users.some(u => u.email.trim().toLowerCase() === normalizedEmail),
+                mobileExists: users.some(u => normalizeMobile(u.mobile) === normalizedMobile)
+            };
+        }
+
+        function userExists(email) {
+            const users = getRegisteredUsers();
+            const normalizedEmail = email.trim().toLowerCase();
+            return users.some(u => u.email.trim().toLowerCase() === normalizedEmail);
+        }
+
+        function registerUser() {
+            formSubmitAttempted = true;
+            const { values, results } = validateAll();
+            const isValid = checkForm();
+
+            if (!isValid) {
+                // Focus the first invalid field instead of relying on alert().
+                const firstInvalid = Object.keys(results).find(field => !results[field].valid);
+                if (firstInvalid) {
+                    const input = document.getElementById(firstInvalid);
+                    if (input && typeof input.focus === "function") input.focus();
+                }
+                return;
+            }
+
+            const { emailExists, mobileExists } = findUserByEmailOrMobile(values.email, values.mobile);
+
+            if (emailExists) {
+                alert("This email is already registered.");
+                return;
+            }
+
+            if (mobileExists) {
+                alert("This mobile number is already registered.");
+                return;
+            }
+
+            const originalLabel = btn.innerText;
+            btn.innerText = "Registering...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+
+                saveRegisteredUser({
+                    name: values.fullname,
+                    email: values.email,
+                    mobile: values.mobile,
+                    state: values.state,
+                    edu: values.edu,
+                    category: values.category,
+                    income: values.income,
+                    password: values.password,
+                    role: "student"
+                });
+
+                alert("Your registration was successful.");
+                btn.innerText = originalLabel;
+
+                window.location.href = "{% url 'verification' %}";
+
+            }, 1000);
+        }
+
+        // Real-time validation: mark the field touched, then re-check the
+        // whole form (keeps cross-field rules like password/confirm in sync).
+        Object.keys(fieldValidators).forEach(field => {
+            const el = document.getElementById(field);
+            if (!el) return;
+            const handler = () => {
+                touched.add(field);
+                // Confirm-password depends on password, so re-validate both
+                // together whenever either one changes.
+                if (field === "password") touched.add("confirm");
+                checkForm();
+            };
+            el.addEventListener("input", handler);
+            el.addEventListener("change", handler);
+            el.addEventListener("blur", handler);
+        });
+
+        // Initial state: button disabled, no error messages shown yet.
+        document.addEventListener("DOMContentLoaded", checkForm);
+        if (document.readyState !== "loading") {
+            checkForm();
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

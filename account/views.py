@@ -3,6 +3,28 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
+from django.shortcuts import render
+def home(request):
+    return render(request, "index.html")
+
+def role(request):
+    return render(request, 'role.html')
+
+# def student_register(request):
+#     return render(request, "student_register.html")
+
+def student_register(request):
+    return render(request, "student_register.html")
+
+def provider_register(request):
+    return render(request, "provider_register.html")
+
+def admin_register(request):
+    return render(request, "admin_register.html")
+
+def verification(request):
+    return render(request, "verification.html")
+
 from .models import (
     UserRole,
     User,
